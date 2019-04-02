@@ -103,7 +103,7 @@ public interface WebAPI {
 
     @POST("/api/visitors/guest_invitations")
     Observable<VisitorGuestInvitationResponse> visitorInvitations(@Body VisitorGuestInvitationRequest visitorGuestInvitationRequest);
-
+    
     @POST("/api/visitors/invitation_acceptence")
     Observable<VisitorInvitationAcceptanceResponse> visitorInvitations(@Body VisitorInvitationAcceptanceRequest visitorInvitationAcceptanceRequest);
 
