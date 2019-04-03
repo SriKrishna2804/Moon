@@ -8,7 +8,6 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -41,6 +40,8 @@ public class MainActivity extends HiddenCameraActivity {
     ImageView ivCamPrev;
     @BindView(R.id.capture_location)
     Button btnLocation;
+    @BindView(R.id.btnLogin)
+    Button btnLogin;
 
     File f;
 
@@ -104,6 +105,11 @@ public class MainActivity extends HiddenCameraActivity {
             } else {
                 Toast.makeText(MainActivity.this, "Location was not found yet!", Toast.LENGTH_SHORT).show();
             }
+        });
+
+        btnLogin.setOnClickListener(v -> {
+            Intent i = new Intent(this, LoginActivity.class);
+            startActivity(i);
         });
     }
 
