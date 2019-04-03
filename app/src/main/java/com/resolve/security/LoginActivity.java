@@ -111,14 +111,14 @@ public class LoginActivity extends BaseActivity {
                 Preferences.saveValue(USER_DATA, new Gson().toJson(loginResponse.getOutput()));
                 goToDashboard();
             }
-
         }
-//        goToDashboard();
-//        if ("Success".equalsIgnoreCase(qrCodeStatusResponse.getStatus()) && qrCodeStatusResponse.isValid()) {
-//            startActivity(new Intent(QRCodeActivity.this, SetPinActivity.class));
-//        } else {
-//            Snackbar.make(qrCodeReaderView, qrCodeStatusResponse.getMessage(), Snackbar.LENGTH_SHORT).show();
-//        }
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (callOTP != null)
+            callOTP.dispose();
+    }
 }
