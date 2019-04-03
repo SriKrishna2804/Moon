@@ -7,6 +7,9 @@ public class Preferences {
     private static SharedPreferences sharedPref;
     private static final String PREF_NAME = "resolve_prefs";
 
+    public static final String USER_ID = "RI_USER_ID" ;
+    public static final String USER_DATA = "RI_USER_DATA" ;
+
     public static void init(Context context) {
         sharedPref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }

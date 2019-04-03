@@ -18,6 +18,9 @@ public class LoginResponse {
     @SerializedName("user_id")
     @Expose
     private String userId;
+    @SerializedName("output")
+    @Expose
+    private Output output;
 
     public Boolean getStatus() {
         return status;
@@ -51,4 +54,22 @@ public class LoginResponse {
         this.userId = userId;
     }
 
+    public Output getOutput() {
+        return output;
+    }
+
+    public void setOutput(Output output) {
+        this.output = output;
+    }
+
+    @Override
+    public String toString() {
+        return "LoginResponse{" +
+                "status=" + status +
+                ", message='" + message + '\'' +
+                ", checkOtp='" + checkOtp + '\'' +
+                ", userId='" + userId + '\'' +
+                ", output=" + output +
+                '}';
+    }
 }

@@ -28,6 +28,10 @@
             android:label="Login" />
 
         <activity
+            android:name=".OTPVerificationPage"
+            android:label="OTP Verification" />
+
+        <activity
             android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

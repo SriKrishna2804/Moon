@@ -27,7 +27,7 @@ public class App extends Application {
         mNetComponent = DaggerNetComponent.builder()
                 // list of modules that are part of this component need to be created here too
                 .appModule(new AppModule(this)) // This also corresponds to the name of your module: %component_name%Module
-                .netModule(new NetModule("http://risolvesm.com/security/"))
+                .netModule(new NetModule("http://risolvesm.com/"))
                 .build();
     }
 
