@@ -1,5 +1,6 @@
 package com.resolve.security.adapters;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,9 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.resolve.security.R;
+import com.resolve.security.StaffActivity;
+import com.resolve.security.VisitorActivity;
 
 // https://www.dev2qa.com/android-cardview-with-image-and-text-example/
 public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.ViewHolder> {
@@ -28,14 +30,6 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater layoutInflater = LayoutInflater.from(viewGroup.getContext());
         View carItemView = layoutInflater.inflate(R.layout.dashboard_item, viewGroup, false);
-        final TextView carTitleView = carItemView.findViewById(R.id.card_view_image_title);
-        final ImageView carImageView = carItemView.findViewById(R.id.card_view_image);
-        carImageView.setOnClickListener(v -> {
-            String carTitle = carTitleView.getText().toString();
-            Toast.makeText(v.getContext(), "You click " + carTitle + " image", Toast.LENGTH_LONG).show();
-        });
-
-        // Create and return our custom Car Recycler View Item Holder object.
         ViewHolder ret = new ViewHolder(carItemView);
         return ret;
     }
@@ -50,6 +44,16 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
             viewHolder.getTvTitle().setText(carItem);
             // Set car image resource id.
             viewHolder.getIvImage().setImageResource(R.drawable.video_play_icon);
+
+            viewHolder.getIvImage().setOnClickListener(v -> {
+                if(position == 0){
+                    Intent i = new Intent(v.getContext(), VisitorActivity.class);
+                    v.getContext().startActivity(i);
+                } else if(position == 1 ) {
+                    Intent i = new Intent(v.getContext(), StaffActivity.class);
+                    v.getContext().startActivity(i);
+                }
+            });
         }
     }
 

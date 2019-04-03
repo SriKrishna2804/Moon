@@ -18,6 +18,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".VisitorActivity"
+            android:label="@string/title_activity_visitor"
+            android:parentActivityName=".Main2Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.resolve.security.Main2Activity" />
+        </activity>
+        <activity
+            android:name=".StaffActivity"
+            android:label="@string/title_activity_staff"
+            android:parentActivityName=".Main2Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.resolve.security.Main2Activity" />
+        </activity>
+        <activity
             android:name=".SplashActivity"
             android:theme="@style/AppTheme.NoActionBar.Splash">
             <intent-filter>
@@ -38,11 +56,10 @@
         <activity
             android:name=".OTPVerificationPage"
             android:label="OTP Verification" />
-
         <activity
             android:name=".Main2Activity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:label="Dashboard"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

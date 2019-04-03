@@ -18,6 +18,8 @@
     <string name="nav_header_subtitle">NA</string>
     <string name="nav_header_desc">NA</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_staff">Staff</string>
+    <string name="title_activity_visitor">VisitorActivity</string>
 
 
 </resources>
