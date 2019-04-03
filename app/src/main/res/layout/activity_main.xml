@@ -17,7 +17,6 @@
         android:id="@+id/capture_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:text="Capture Pic" />
 
     <ImageView
@@ -26,5 +25,12 @@
         android:layout_height="200dp"
         android:layout_above="@id/capture_btn"
         android:scaleType="centerCrop" />
+
+    <Button
+        android:id="@+id/capture_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Capture Location" />
+
 
 </LinearLayout>

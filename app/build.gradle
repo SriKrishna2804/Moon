@@ -70,4 +70,5 @@ dependencies {
     implementation 'com.kevalpatel2106:hiddencamera:1.3.3'
 
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.github.quentin7b:android-location-tracker:3.2'
 }
