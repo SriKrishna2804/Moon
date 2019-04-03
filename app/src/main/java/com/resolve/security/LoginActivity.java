@@ -1,14 +1,10 @@
 package com.resolve.security;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 
 import com.google.gson.Gson;
@@ -35,9 +31,10 @@ public class LoginActivity extends BaseActivity {
     private TextInputLayout emailInputLayout, passwordInputLayout;
     private Button btnLogin;
 
-    private Disposable callOTP;
+    private Disposable callLogin;
 
-    @Inject WebAPI mWebAPI;
+    @Inject
+    WebAPI mWebAPI;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,7 +47,7 @@ public class LoginActivity extends BaseActivity {
         btnLogin.setOnClickListener(v -> handleLogin());
     }
 
-    private void handleLogin(){
+    private void handleLogin() {
         hideKeyboard();
         String username = emailInputLayout.getEditText().getText().toString();
         String password = passwordInputLayout.getEditText().getText().toString();
@@ -65,14 +62,15 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    private void goToDashboard(){
+    private void goToDashboard() {
         Intent i = new Intent(this, DashboardActivity.class);
         startActivity(i);
     }
 
-    private void goToOTPVerification(){
+    private void goToOTPVerification() {
         Intent i = new Intent(this, OTPVerificationPage.class);
         startActivity(i);
+        finish();
     }
 
     private void login(String userName, String password) {
@@ -82,28 +80,26 @@ public class LoginActivity extends BaseActivity {
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setUsername(userName);
         loginRequest.setPassword(password);
-        loginRequest.setToken(DeviceIDs.id(this));
+        loginRequest.setToken(DeviceIDs.id());
 
         Observable<LoginResponse> call = mWebAPI.login(loginRequest);
 
-        callOTP = call
+        callLogin = call
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(loginResponse -> onSuccess(loginResponse),
-                        throwable -> onError(throwable),
-                        () -> hideProgress());
+                .subscribe(this::onSuccess,
+                        this::onError,
+                        this::hideProgress);
     }
 
     private void onError(Throwable throwable) {
-        Log.i("Error", throwable.getMessage());
+        showToast(throwable.getMessage());
     }
 
     private void onSuccess(LoginResponse loginResponse) {
-        Log.i("Response", loginResponse.toString());
-
-        if(loginResponse != null && loginResponse.getStatus()){
+        if (loginResponse != null && loginResponse.getStatus()) {
             Preferences.saveValue(USER_ID, loginResponse.getUserId());
-            if("true".equalsIgnoreCase(loginResponse.getCheckOtp())){
+            if ("true".equalsIgnoreCase(loginResponse.getCheckOtp())) {
                 // Go To OTP Screen
                 goToOTPVerification();
             } else {
@@ -111,14 +107,14 @@ public class LoginActivity extends BaseActivity {
                 Preferences.saveValue(USER_DATA, new Gson().toJson(loginResponse.getOutput()));
                 goToDashboard();
             }
+            finish();
         }
     }
-
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (callOTP != null)
-            callOTP.dispose();
+        if (callLogin != null)
+            callLogin.dispose();
     }
 }

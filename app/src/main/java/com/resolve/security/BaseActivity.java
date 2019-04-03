@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -33,5 +34,14 @@ public class BaseActivity extends AppCompatActivity {
     protected void hideProgress(){
         if(pDialog != null)
             pDialog.dismiss();
+    }
+
+    private Toast t;
+    protected void showToast(String message){
+        if(t != null){
+            t.cancel();
+        }
+        t = Toast.makeText(this, message, Toast.LENGTH_SHORT);
+        t.show();
     }
 }

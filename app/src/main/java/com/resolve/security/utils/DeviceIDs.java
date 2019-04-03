@@ -8,6 +8,8 @@ import java.util.UUID;
 
 public class DeviceIDs {
 
+    public static final String UNIQUE_RISOLVE_UUID = "ba195532-3eb9-45bb-8710-5711a5a526c5";
+
     public static String getSecureAndroidID(Context context){
         String androidId = Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
@@ -17,7 +19,7 @@ public class DeviceIDs {
     private static String uniqueID = null;
     private static final String PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
 
-    public synchronized static String id(Context context) {
+    public synchronized static String id() {
         if (TextUtils.isEmpty(uniqueID)) {
             uniqueID = Preferences.getString(PREF_UNIQUE_ID);
             if (TextUtils.isEmpty(uniqueID)) {
