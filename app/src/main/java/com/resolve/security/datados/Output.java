@@ -20,7 +20,7 @@ public class Output {
     private String userMobile;
     @SerializedName("user_image")
     @Expose
-    private Object userImage;
+    private String userImage;
     @SerializedName("user_type_id")
     @Expose
     private String userTypeId;
@@ -90,11 +90,11 @@ public class Output {
         this.userMobile = userMobile;
     }
 
-    public Object getUserImage() {
+    public String getUserImage() {
         return userImage;
     }
 
-    public void setUserImage(Object userImage) {
+    public void setUserImage(String userImage) {
         this.userImage = userImage;
     }
 

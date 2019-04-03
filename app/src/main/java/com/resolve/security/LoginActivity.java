@@ -63,7 +63,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void goToDashboard() {
-        Intent i = new Intent(this, DashboardActivity.class);
+        Intent i = new Intent(this, Main2Activity.class);
         startActivity(i);
     }
 

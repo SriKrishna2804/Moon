@@ -64,7 +64,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void goTo(int mode) {
         new Handler().postDelayed(() -> {
-            Intent mainIntent = new Intent(this, mode == 0 ? LoginActivity.class : DashboardActivity.class);
+            Intent mainIntent = new Intent(this, mode == 0 ? LoginActivity.class : Main2Activity.class);
             startActivity(mainIntent);
             finish();
         }, SPLASH_DISPLAY_LENGTH);
