@@ -35,8 +35,10 @@ public class SplashActivity extends AppCompatActivity {
         boolean isLocationGranted =
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                         && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        boolean isWriteExternalGranted = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
 
-        if (isCameraGranted && isLocationGranted) {
+
+        if (isCameraGranted && isLocationGranted && isWriteExternalGranted) {
             navigateUser();
         } else {
             requestPermissions();
@@ -57,7 +59,8 @@ public class SplashActivity extends AppCompatActivity {
                 new String[]{
                         Manifest.permission.ACCESS_FINE_LOCATION,
                         Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.CAMERA
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
                 },
                 102);
     }
@@ -77,7 +80,8 @@ public class SplashActivity extends AppCompatActivity {
         if (requestCode == 102) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED
-                    && grantResults[2] == PackageManager.PERMISSION_GRANTED) {
+                    && grantResults[2] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[3] == PackageManager.PERMISSION_GRANTED) {
                 navigateUser();
             } else {
                 DialogUtils.showDialog(this,

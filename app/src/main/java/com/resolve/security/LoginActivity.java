@@ -16,6 +16,8 @@ import com.resolve.security.web.WebAPI;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -28,8 +30,9 @@ import static com.resolve.security.utils.Validators.validatePassword;
 
 public class LoginActivity extends BaseActivity {
 
-    private TextInputLayout emailInputLayout, passwordInputLayout;
-    private Button btnLogin;
+    @BindView(R.id.emailInputLayout) TextInputLayout emailInputLayout;
+    @BindView(R.id.passwordInputLayout) TextInputLayout passwordInputLayout;
+    @BindView(R.id.btnLogin) Button btnLogin;
 
     private Disposable callLogin;
 
@@ -41,9 +44,7 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ((App) getApplication()).getNetComponent().inject(this);
-        emailInputLayout = findViewById(R.id.emailInputLayout);
-        passwordInputLayout = findViewById(R.id.passwordInputLayout);
-        btnLogin = findViewById(R.id.btnLogin);
+        ButterKnife.bind(this);
         btnLogin.setOnClickListener(v -> handleLogin());
     }
 
