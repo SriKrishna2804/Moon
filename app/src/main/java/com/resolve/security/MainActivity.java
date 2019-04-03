@@ -4,12 +4,10 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.location.Location;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -30,6 +28,7 @@ import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fr.quentinklein.slt.LocationTracker;
 
 public class MainActivity extends HiddenCameraActivity {
 
@@ -39,13 +38,17 @@ public class MainActivity extends HiddenCameraActivity {
     Button btnCapture;
     @BindView(R.id.cam_prev)
     ImageView ivCamPrev;
+    @BindView(R.id.capture_location)
+    Button btnLocation;
+    @BindView(R.id.btnLogin)
+    Button btnLogin;
 
     File f;
-
 
     private static final int REQ_CODE_CAMERA_PERMISSION = 1253;
 
     private CameraConfig mCameraConfig;
+    private Location mLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,7 @@ public class MainActivity extends HiddenCameraActivity {
         });
 
         btnCapture.setOnClickListener(v -> {
-            if(f != null){
+            if (f != null) {
                 Toast.makeText(this, "Already got the Image for this Session", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -74,20 +77,66 @@ public class MainActivity extends HiddenCameraActivity {
                 .setImageRotation(CameraRotation.ROTATION_270)
                 .build();
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+        boolean isCameraGranted = ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
+        boolean isLocationGranted =
+                ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+
+        if (isCameraGranted) {
             //Start camera preview
             startCamera(mCameraConfig);
         } else {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 101);
         }
+
+        if (!isLocationGranted) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION},
+                    102);
+        } else {
+            startLocationTracking();
+        }
+
+        btnLocation.setOnClickListener(v -> {
+            if(mLocation != null){
+                Toast.makeText(MainActivity.this, mLocation.toString(), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(MainActivity.this, "Location was not found yet!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnLogin.setOnClickListener(v -> {
+            Intent i = new Intent(this, LoginActivity.class);
+            startActivity(i);
+        });
+    }
+
+    @SuppressLint("MissingPermission")
+    private void startLocationTracking() {
+        LocationTracker tracker = new LocationTracker(this) {
+            @Override
+            public void onLocationFound(Location location) {
+                // Do some stuff
+                mLocation = location;
+                Toast.makeText(MainActivity.this, mLocation.toString(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTimeout() {
+
+            }
+        };
+        tracker.startListening();
     }
 
     // Get the results:
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() == null) {
+        if (result != null) {
+            if (result.getContents() == null) {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
@@ -100,20 +149,9 @@ public class MainActivity extends HiddenCameraActivity {
     @Override
     public void onImageCapture(@NonNull File imageFile) {
         f = imageFile;
-        // Convert file to bitmap.
-        // Do something.
-//        BitmapFactory.Options options = new BitmapFactory.Options();
-//        options.inPreferredConfig = Bitmap.Config.RGB_565;
-//        Bitmap bitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath(), options);
-//
-//        //Display the image to the image view
-//        ((ImageView) findViewById(R.id.cam_prev)).setImageBitmap(bitmap);
-
         Picasso.get()
                 .load(imageFile)
                 .into(ivCamPrev);
-
-
     }
 
     @Override
@@ -155,6 +193,12 @@ public class MainActivity extends HiddenCameraActivity {
                 startCamera(mCameraConfig);
             } else {
                 Toast.makeText(this, "Camera Permission was denied", Toast.LENGTH_LONG).show();
+            }
+        } else if (requestCode == 102) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                startLocationTracking();
+            } else {
+                Toast.makeText(this, "Location Permission was denied", Toast.LENGTH_LONG).show();
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);

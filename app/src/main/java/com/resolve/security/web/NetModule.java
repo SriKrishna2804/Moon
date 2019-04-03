@@ -17,8 +17,7 @@ import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
-import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class NetModule {
@@ -56,9 +55,6 @@ public class NetModule {
         httpClient.writeTimeout(15, TimeUnit.SECONDS);
         httpClient.addInterceptor(logging);
         return httpClient.build();
-
-//        OkHttpClient client = new OkHttpClient();
-//        return client;
     }
 
     @Provides
@@ -71,10 +67,8 @@ public class NetModule {
     @Singleton
     Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient, RxJava2CallAdapterFactory rxAdapter) {
 
-        //https://futurestud.io/tutorials/retrofit-2-receive-plain-string-responses
         Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(ScalarsConverterFactory.create())
-                .addConverterFactory(SimpleXmlConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .baseUrl(mBaseUrl)
                 .client(okHttpClient)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

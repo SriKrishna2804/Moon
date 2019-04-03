@@ -44,67 +44,67 @@ import retrofit2.http.POST;
 
 public interface WebAPI {
 
-    @POST("/api/login")
+    @POST("/security/api/login")
     Observable<LoginResponse> login(@Body LoginRequest loginRequest);
 
-    @POST("/api/login/changepassword")
+    @POST("/security/api/login/changepassword")
     Observable<ChangePasswordResponse> changePassword(@Body ChangePasswordRequest changePasswordRequest);
 
-    @POST("/api/login/checkotp")
+    @POST("/security/api/login/checkotp")
     Observable<CheckOTPResponse> checkOTP(@Body CheckOTPRequest checkOTPRequest);
 
-    @POST("/api/entry/scan")
+    @POST("/security/api/entry/scan")
     Observable<SecurityScanResponse> securityScan(@Body SecurityScanRequest securityScanRequest);
 
-    @POST("/api/entry/entry_book")
+    @POST("/security/api/entry/entry_book")
     Observable<EntryBookResponse> addEntryBook(@Body EntryBookRequest entryBookRequest);
 
-    @POST("/api/entry/list")
+    @POST("/security/api/entry/list")
     Observable<EntryListResponse> entryList(@Body EntryListRequest entryListRequest);
 
-    @POST("/api/packages/request")
+    @POST("/security/api/packages/request")
     Observable<PackageRResponse> packageRequest(@Body PackageRequest entryListRequest);
 
-    @POST("/api/packages/verify_package")
+    @POST("/security/api/packages/verify_package")
     Observable<PackageVerificationResponse> packageVerification(@Body PackageVerificationResquest packageVerificationResquest);
 
-    @POST("/api/packages/list")
+    @POST("/security/api/packages/list")
     Observable<PackageListResponse> packageList(@Body PackageListRequest packageListRequest);
 
-    @POST("/api/visitors/visitor_relations")
+    @POST("/security/api/visitors/visitor_relations")
     Observable<VisitorRelationResponse> vistorRelations(@Body VisitorRelationRequest packageListRequest);
 
-    @POST("/api/visitors/request")
+    @POST("/security/api/visitors/request")
     Observable<VisitorInviteResponse> visitorRequest(@Body VisitorInviteRequest packageListRequest);
 
     // Image File in "Image" Field
     @FormUrlEncoded
-    @POST("/api/visitors/request_verify")
+    @POST("/security/api/visitors/request_verify")
     Observable<RequestVerifyResponse> visitorRequestVerify(@Field("token") String token,
                                                           @Field("user_id") String user_id,
                                                           @Field("request_code") String request_code,
                                                           @Field("request_id") String request_id,
                                                           @Field("image") String image);
 
-    @POST("/api/visitors/invitations")
+    @POST("/security/api/visitors/invitations")
     Observable<VisitorInviteListRequest> visitorInvitations(@Body VisitorInviteListRequest packageListRequest);
 
-    @POST("/api/visitors/entry_list")
+    @POST("/security/api/visitors/entry_list")
     Observable<RequestBody> visitorEntryList(@Body PackageListRequest packageListRequest);
 
-    @POST("/api/visitors/exit")
+    @POST("/security/api/visitors/exit")
     Observable<VisitorExitResponse> visitorInvitations(@Body VisitorExitRequest visitorExitRequest);
 
-    @POST("/api/visitors/cancel_invitation")
+    @POST("/security/api/visitors/cancel_invitation")
     Observable<VisitorInvitationCancelResponse> visitorCancelInvitation(@Body VisitorInvitationCancelRequest visitorInvitationCancelRequest);
 
-    @POST("/api/visitors/guest_request")
+    @POST("/security/api/visitors/guest_request")
     Observable<VisitorGuestRequestResponse> visitorGuestRequest(@Body VisitorGuestInvitationRequest visitorGuestInvitationRequest);
 
-    @POST("/api/visitors/guest_invitations")
+    @POST("/security/api/visitors/guest_invitations")
     Observable<VisitorGuestInvitationResponse> visitorInvitations(@Body VisitorGuestInvitationRequest visitorGuestInvitationRequest);
     
-    @POST("/api/visitors/invitation_acceptence")
+    @POST("/security/api/visitors/invitation_acceptence")
     Observable<VisitorInvitationAcceptanceResponse> visitorInvitations(@Body VisitorInvitationAcceptanceRequest visitorInvitationAcceptanceRequest);
 
 }
