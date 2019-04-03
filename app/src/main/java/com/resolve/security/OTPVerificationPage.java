@@ -3,7 +3,6 @@ package com.resolve.security;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.InputFilter;
 import android.widget.Button;
 import android.widget.EditText;
 

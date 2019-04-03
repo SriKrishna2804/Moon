@@ -17,29 +17,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
-
-        <activity
-            android:name=".DashboardActivity"
-            android:label="Dashboard" />
-
-        <activity
-            android:name=".LoginActivity"
-            android:label="Login" />
-
-        <activity
-            android:name=".OTPVerificationPage"
-            android:label="OTP Verification" />
-
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="Main Page" />
+        <activity
+            android:name=".DashboardActivity"
+            android:label="Dashboard" />
+        <activity
+            android:name=".LoginActivity"
+            android:label="Login" />
+        <activity
+            android:name=".OTPVerificationPage"
+            android:label="OTP Verification" />
+
+        <activity
+            android:name=".Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
