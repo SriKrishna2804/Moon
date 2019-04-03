@@ -4,6 +4,7 @@ package com.resolve;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.resolve.security.datados.Datum;
 
 public class VisitorRelationResponse {
 
