@@ -1,6 +1,7 @@
 package com.resolve.security.web;
 
 
+import com.resolve.security.CourierActivity;
 import com.resolve.security.LoginActivity;
 import com.resolve.security.MainActivity;
 import com.resolve.security.OTPVerificationPage;
@@ -18,4 +19,5 @@ public interface NetComponent {
     void inject(LoginActivity activity);
     void inject(OTPVerificationPage activity);
     void inject(VisitorActivity activity);
+    void inject(CourierActivity activity);
 }

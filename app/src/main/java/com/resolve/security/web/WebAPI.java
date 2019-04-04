@@ -63,7 +63,7 @@ public interface WebAPI {
     Observable<EntryListResponse> entryList(@Body EntryListRequest entryListRequest);
 
     @POST("/security/api/packages/request")
-    Observable<PackageRResponse> packageRequest(@Body PackageRequest entryListRequest);
+    Observable<PackageRResponse> packageRequest(@Body PackageRequest packageRequest);
 
     @POST("/security/api/packages/verify_package")
     Observable<PackageVerificationResponse> packageVerification(@Body PackageVerificationResquest packageVerificationResquest);

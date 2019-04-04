@@ -12,6 +12,12 @@ import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
+import com.resolve.security.datados.Output;
+import com.resolve.security.datados.PackageRResponse;
+import com.resolve.security.datados.PackageRequest;
+import com.resolve.security.utils.DeviceIDs;
+import com.resolve.security.utils.Preferences;
 import com.resolve.security.web.WebAPI;
 import com.squareup.picasso.Picasso;
 
@@ -24,24 +30,27 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
-public class VisitorActivity extends BaseActivity {
+public class CourierActivity extends BaseActivity {
 
-    @BindView(R.id.nameInputLayout)
-    TextInputLayout nameInputLayout;
+    @BindView(R.id.residentInputLayout)
+    TextInputLayout residentInputLayout;
     @BindView(R.id.flatNoInputLayout)
     TextInputLayout flatNoInputLayout;
     @BindView(R.id.mobileInputLayout)
     TextInputLayout mobileInputLayout;
-    @BindView(R.id.authorizationInputLayout)
-    TextInputLayout authorizationInputLayout;
+    @BindView(R.id.packageFromInputLayout)
+    TextInputLayout packageFromInputLayout;
     @BindView(R.id.btnSubmit)
     Button btnSubmit;
     @BindView(R.id.ivImage)
     ImageView ivImage;
 
-    private Disposable callVisitor;
+    private Disposable callCourier;
 
     @Inject
     WebAPI mWebAPI;
@@ -49,7 +58,7 @@ public class VisitorActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_visitor);
+        setContentView(R.layout.activity_courier);
         ((App) getApplication()).getNetComponent().inject(this);
         ButterKnife.bind(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -60,28 +69,60 @@ public class VisitorActivity extends BaseActivity {
     }
 
     private void handleSubmission() {
-        String name = nameInputLayout.getEditText().getText().toString();
+        String residentName = residentInputLayout.getEditText().getText().toString();
         String flat = flatNoInputLayout.getEditText().getText().toString();
         String mobile = mobileInputLayout.getEditText().getText().toString();
-        String authCode = authorizationInputLayout.getEditText().getText().toString();
+        String packageFrom = packageFromInputLayout.getEditText().getText().toString();
 
         if (TextUtils.isEmpty(currentPhotoPath)) {
             showToast(getString(R.string.visitor_pic_not_taken));
-        } else if (TextUtils.isEmpty(name)) {
+        } else if (TextUtils.isEmpty(residentName)) {
             showToast(getString(R.string.name_empty));
         } else if (TextUtils.isEmpty(flat)) {
             showToast(getString(R.string.flat_empty));
         } else if (TextUtils.isEmpty(mobile)) {
             showToast(getString(R.string.mobile_empty));
-        } else if (TextUtils.isEmpty(authCode)) {
-            showToast(getString(R.string.authorization_empty));
+        } else if (TextUtils.isEmpty(packageFrom)) {
+            showToast(getString(R.string.package_from_empty_hint));
         } else {
-            callVisitorService();
+            callVisitorService(residentName, mobile, packageFrom, flat);
         }
     }
 
-    private void callVisitorService() {
+    private void callVisitorService(String name, String mobileNo, String packageFrom, String packageTo) {
 
+        showProgress("Verifying Package...");
+
+        Output o = new Gson().fromJson(Preferences.getString(Preferences.USER_DATA), Output.class);
+
+        PackageRequest packageRequest = new PackageRequest();
+        packageRequest.setLocationId(o.getLocationId());
+        packageRequest.setUserId(o.getUserId());
+        packageRequest.setToken(DeviceIDs.id());
+        packageRequest.setPackageFrom(packageFrom);
+        packageRequest.setPackageTo(packageTo);
+        packageRequest.setMobile(mobileNo);
+        packageRequest.setName(name);
+
+
+        Observable<PackageRResponse> call = mWebAPI.packageRequest(packageRequest);
+
+        callCourier = call
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onSuccess,
+                        this::onError,
+                        this::hideProgress);
+    }
+
+    private void onError(Throwable throwable) {
+        showToast(throwable.getMessage());
+    }
+
+    private void onSuccess(PackageRResponse packageRResponse) {
+        if (packageRResponse != null && packageRResponse.getStatus()) {
+// {"status":true,"message":"Please check your mobile for otp","otp":"8556A710","package_id":7}
+        }
     }
 
     static final int REQUEST_TAKE_PHOTO = 1;
@@ -145,7 +186,8 @@ public class VisitorActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(callVisitor != null)
-            callVisitor.dispose();
+        if(callCourier != null)
+            callCourier.dispose();
     }
+
 }

@@ -18,14 +18,18 @@
     <string name="nav_header_subtitle">NA</string>
     <string name="nav_header_desc">NA</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_staff">Staff</string>
-    <string name="title_activity_visitor">VisitorActivity</string>
+    <string name="title_activity_staff">Staff Request</string>
+    <string name="title_activity_visitor">Visitor Request</string>
     <string name="name_empty">Name should not be empty</string>
     <string name="flat_empty">Flat No. should not be empty</string>
     <string name="mobile_empty">Mobile No. should not be empty</string>
     <string name="authorization_empty">Authorization Code should not be empty</string>
     <string name="camera_unavailable_hint">Camera not available at the moment, Please try again later.</string>
     <string name="visitor_pic_not_taken">Please take a picture of the Visitor.</string>
+    <string name="title_activity_courier">Courier Request</string>
+    <string name="fileprovide_authority">com.resolve.security.fileprovider</string>
+    <string name="file_jpg_name_format">yyyyMMdd_HHmmss</string>
+    <string name="package_from_empty_hint">Package from should not be empty.</string>
 
 
 </resources>

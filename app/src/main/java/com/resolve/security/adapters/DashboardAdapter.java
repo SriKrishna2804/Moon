@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.resolve.security.CourierActivity;
 import com.resolve.security.R;
 import com.resolve.security.StaffActivity;
 import com.resolve.security.VisitorActivity;
@@ -51,6 +52,9 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
                     v.getContext().startActivity(i);
                 } else if(position == 1 ) {
                     Intent i = new Intent(v.getContext(), StaffActivity.class);
+                    v.getContext().startActivity(i);
+                } else if(position == 5) {
+                    Intent i = new Intent(v.getContext(), CourierActivity.class);
                     v.getContext().startActivity(i);
                 }
             });
