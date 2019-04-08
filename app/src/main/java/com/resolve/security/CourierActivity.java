@@ -179,7 +179,6 @@ public class CourierActivity extends BaseActivity {
                     .load(new File(currentPhotoPath))
                     .rotate(90f)
                     .into(ivImage);
-
         }
     }
 

@@ -85,6 +85,15 @@
             android:name=".Main2Activity"
             android:label="Dashboard"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SampleActivity"
+            android:label="@string/title_activity_sample"
+            android:parentActivityName=".Main2Activity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.resolve.security.Main2Activity" />
+        </activity>
     </application>
 
 </manifest>
