@@ -26,6 +26,16 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
             "Faculty Booking"
     };
 
+    int [] icons = {
+            R.drawable.ic_visitor,
+            R.drawable.ic_staff,
+            R.drawable.ic_register,
+            R.drawable.ic_resident,
+            R.drawable.ic_vehicle,
+            R.drawable.ic_courier_packet,
+            R.drawable.ic_facility_booking
+    };
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -39,12 +49,12 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         // Get car item dto in list.
         String carItem = items[position];
-
+        int drawableId = icons[position];
         if(carItem != null) {
             // Set car item title.
             viewHolder.getTvTitle().setText(carItem);
             // Set car image resource id.
-            viewHolder.getIvImage().setImageResource(R.drawable.video_play_icon);
+            viewHolder.getIvImage().setImageResource(drawableId);
 
             viewHolder.getIvImage().setOnClickListener(v -> {
                 if(position == 0){
