@@ -25,7 +25,7 @@ import com.squareup.picasso.Picasso;
 public class Main2Activity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ImageView ivProfile;
+    private ImageView ivProfile, ivImage;
     private TextView tvUserTitle, tvLocation;
 
     @Override
@@ -57,6 +57,7 @@ public class Main2Activity extends AppCompatActivity
         ivProfile = hView.findViewById(R.id.ivProfile);
         tvUserTitle = hView.findViewById(R.id.tvUserTitle);
         tvLocation = hView.findViewById(R.id.tvLocation);
+        ivImage = findViewById(R.id.ivImage);
 
         setProfileInfo();
     }
@@ -78,6 +79,12 @@ public class Main2Activity extends AppCompatActivity
         // Location name
         String locationName = output.getLocationName();
         tvLocation.setText(locationName);
+
+        // Set Banner Image.
+        String bannerUrl = output.getLocationImage();
+        if (!TextUtils.isEmpty(bannerUrl)) {
+            Picasso.get().load(bannerUrl).into(ivImage);
+        }
     }
 
     @Override
@@ -96,7 +103,7 @@ public class Main2Activity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if(id == R.id.nav_logout){
+        if (id == R.id.nav_logout) {
             logout();
         }
 
@@ -105,7 +112,7 @@ public class Main2Activity extends AppCompatActivity
         return true;
     }
 
-    private void logout(){
+    private void logout() {
         Preferences.clearAll();
         finishAffinity();
         Intent i = new Intent(this, LoginActivity.class);
