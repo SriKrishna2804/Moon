@@ -18,9 +18,7 @@ import com.resolve.security.VisitorActivity;
 public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.ViewHolder> {
     String[] items = {
             "Visitors",
-            "Staff",
             "Register",
-            "Resident",
             "Vehicle",
             "Courier",
             "Faculty Booking",
@@ -29,9 +27,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
 
     int [] icons = {
             R.drawable.ic_visitor,
-            R.drawable.ic_staff,
             R.drawable.ic_register,
-            R.drawable.ic_resident,
             R.drawable.ic_vehicle,
             R.drawable.ic_courier_packet,
             R.drawable.ic_facility_booking,
