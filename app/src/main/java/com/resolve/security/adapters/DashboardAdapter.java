@@ -23,7 +23,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
             "Resident",
             "Vehicle",
             "Courier",
-            "Faculty Booking"
+            "Faculty Booking",
+            "Scan"
     };
 
     int [] icons = {
@@ -33,7 +34,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
             R.drawable.ic_resident,
             R.drawable.ic_vehicle,
             R.drawable.ic_courier_packet,
-            R.drawable.ic_facility_booking
+            R.drawable.ic_facility_booking,
+            R.drawable.ic_scan
     };
 
     @NonNull
