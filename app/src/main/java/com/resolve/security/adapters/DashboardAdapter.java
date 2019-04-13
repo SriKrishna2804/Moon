@@ -14,24 +14,39 @@ import com.resolve.security.R;
 import com.resolve.security.StaffActivity;
 import com.resolve.security.VisitorActivity;
 
+
+//Scan
+//        Register
+//        Visitors
+//        Vehicles
+//        Courier
+//        Facility
+//        Monitor
+//        Residents
+
 // https://www.dev2qa.com/android-cardview-with-image-and-text-example/
 public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.ViewHolder> {
     String[] items = {
-            "Visitors",
+            "Scan",
             "Register",
+            "Visitors",
             "Vehicle",
             "Courier",
             "Faculty Booking",
-            "Scan"
+            "Monitor",
+            "Residents"
+
     };
 
     int [] icons = {
-            R.drawable.ic_visitor,
+            R.drawable.ic_scan,
             R.drawable.ic_register,
+            R.drawable.ic_visitor,
             R.drawable.ic_vehicle,
             R.drawable.ic_courier_packet,
             R.drawable.ic_facility_booking,
-            R.drawable.ic_scan
+            R.drawable.ic_monitor,
+            R.drawable.ic_resident
     };
 
     @NonNull
