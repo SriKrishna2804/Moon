@@ -11,18 +11,9 @@ import android.widget.TextView;
 
 import com.resolve.security.CourierActivity;
 import com.resolve.security.R;
+import com.resolve.security.ScanActivity;
 import com.resolve.security.StaffActivity;
 import com.resolve.security.VisitorActivity;
-
-
-//Scan
-//        Register
-//        Visitors
-//        Vehicles
-//        Courier
-//        Facility
-//        Monitor
-//        Residents
 
 // https://www.dev2qa.com/android-cardview-with-image-and-text-example/
 public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.ViewHolder> {
@@ -71,6 +62,9 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
 
             viewHolder.getIvImage().setOnClickListener(v -> {
                 if(position == 0){
+                    Intent i = new Intent(v.getContext(), ScanActivity.class);
+                    v.getContext().startActivity(i);
+                } else if(position == 2){
                     Intent i = new Intent(v.getContext(), VisitorActivity.class);
                     v.getContext().startActivity(i);
                 } else if(position == 1 ) {
@@ -97,10 +91,8 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.View
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            if (itemView != null) {
-                tvTitle = itemView.findViewById(R.id.card_view_image_title);
-                ivImage = itemView.findViewById(R.id.card_view_image);
-            }
+            tvTitle = itemView.findViewById(R.id.card_view_image_title);
+            ivImage = itemView.findViewById(R.id.card_view_image);
         }
 
         public TextView getTvTitle() {

@@ -31,6 +31,7 @@
     <string name="file_jpg_name_format">yyyyMMdd_HHmmss</string>
     <string name="package_from_empty_hint">Package from should not be empty.</string>
     <string name="title_activity_sample">Sample Activity</string>
+    <string name="title_activity_scan">ScanPage</string>
 
 
 </resources>
